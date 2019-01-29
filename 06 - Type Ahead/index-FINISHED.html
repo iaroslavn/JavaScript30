@@ -50,18 +50,19 @@
     if (searchTerm) {
       const regex = new RegExp(searchTerm, 'gi');
       const matches = findMatches(regex, cities);
-      html = matches.map(place => {
-        const cityName = place.city.replace(regex, `<span class="hl">${searchTerm}</span>`);
-        const stateName = place.state.replace(regex, `<span class="hl">${searchTerm}</span>`);
-        return `
-          <li>
-            <span class="name">${cityName}, ${stateName}</span>
-            <span class="population">${numberWithCommas(place.population)}</span>
-          </li>
-        `;
-      })
-      .sort((p1, p2) => p1.population - p2.population)
-      .join('\n');
+      html = matches
+        .sort((p1, p2) => p2.population - p1.population)
+        .map(place => {
+          const cityName = place.city.replace(regex, `<span class="hl">${searchTerm}</span>`);
+          const stateName = place.state.replace(regex, `<span class="hl">${searchTerm}</span>`);
+          return `
+            <li>
+              <span class="name">${cityName}, ${stateName}</span>
+              <span class="population">${numberWithCommas(place.population)}</span>
+            </li>
+          `;
+        })
+        .join('\n');
     }
     suggestions.innerHTML = html;
   }
