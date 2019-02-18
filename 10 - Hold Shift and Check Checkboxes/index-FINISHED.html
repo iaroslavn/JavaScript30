@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Hold Shift to Check Multiple Checkboxes</title>
 </head>
+
 <body>
   <style>
-
     html {
       font-family: sans-serif;
       background: #ffc600;
@@ -17,7 +18,7 @@
       margin: 50px auto;
       background: white;
       border-radius: 5px;
-      box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+      box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
     }
 
     .item {
@@ -30,7 +31,7 @@
       border-bottom: 0;
     }
 
-    input:checked + p {
+    input:checked+p {
       background: #F9F9F9;
       text-decoration: line-through;
     }
@@ -44,13 +45,13 @@
       padding: 20px;
       transition: background 0.2s;
       flex: 1;
-      font-family:'helvetica neue';
+      font-family: 'helvetica neue';
       font-size: 20px;
       font-weight: 200;
       border-left: 1px solid #D1E2FF;
     }
   </style>
-   <!--
+  <!--
    The following is a common layout you would see in an email client.
 
    When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
@@ -95,35 +96,27 @@
     </div>
   </div>
 
-<script>
-  const checkboxes = document.querySelectorAll(".inbox input[type='checkbox']");
-  checkboxes.forEach(cb => cb.addEventListener('click', onCheckBoxClick));
+  <script>
+    const checkboxes = Array.from(document.querySelectorAll(".inbox input[type='checkbox']"));
+    checkboxes.forEach(cb => cb.addEventListener('click', onCheckBoxClick));
 
-  function getIndex(cb) {
-    for (let i = 0; i < checkboxes.length; i++) {
-      if (cb === checkboxes[i]) {
-        return i;
-      }
-    }
-    return -1;
-  }
+    let lastCheckedIndex;
 
-  let lastCheckedIndex;
+    function onCheckBoxClick(e) {
+      if (e.shiftKey) {
+        let currIndex = checkboxes.findIndex(cb => cb === e.target);
+        if (lastCheckedIndex > currIndex) {
+          [lastCheckedIndex, currIndex] = [currIndex, lastCheckedIndex];
+        }
+        for (let i = lastCheckedIndex + 1; i < currIndex; i++) {
+          checkboxes[i].checked = !checkboxes[i].checked;
+        }
+      }
 
-  function onCheckBoxClick(e) {
-    if (e.shiftKey && e.target.checked) {
-      let currIndex = getIndex(e.target);
-      if (lastCheckedIndex > currIndex) {
-        [lastCheckedIndex, currIndex] = [currIndex, lastCheckedIndex];
-      }
-      for (let i = lastCheckedIndex + 1; i < currIndex; i++) {
-        checkboxes[i].checked = !checkboxes[i].checked;
-      }
+      lastCheckedIndex = checkboxes.findIndex(cb => cb === e.target);
     }
 
-    lastCheckedIndex = getIndex(e.target);
-  }
-
-</script>
+  </script>
 </body>
+
 </html>
