@@ -100,6 +100,11 @@
     console.log({wes});
     console.log({dev});
 
+    // here is one way to perform a deep copy
+    const dev2 = JSON.parse(JSON.stringify(wes));
+    dev2.social.twitter = '@somethingElse';
+    console.log({wes});
+    console.log({dev2});
   </script>
 
 </body>
