@@ -14,7 +14,7 @@
     <span class="units">KM/H</span>
   </h1>
 
-  <div id="map"></div>
+  <div class="map"></div>
 
   <style>
     html {
@@ -58,6 +58,11 @@
     .units {
       font-size: 15px;
     }
+
+    .map {
+      height: 375px;
+      width: 100%;
+    }
     /*Compass: https://thenounproject.com/search/?q=compass&i=592352*/
   </style>
   <script>
@@ -76,30 +81,27 @@
 
     // Google Map specific code
     function initMap() {
-      const map = new google.maps.Map(document.querySelector('#map'), {
-        center: {lat: -34.397, lng: 150.644},
+      const map = new google.maps.Map(document.querySelector('.map'), {
+        center: {lat: 40.713, lng: -74.006},
         zoom: 6
       });
 
       const infoWindow = new google.maps.InfoWindow;
 
-      // Try HTML5 geolocation.
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition( position => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+      navigator.geolocation.getCurrentPosition( position => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
 
-          infoWindow.setPosition(pos);
-          infoWindow.setContent('Location found.');
-          infoWindow.open(map);
-          map.setCenter(pos);
-        }, handleLocationError);
-      }
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Location found.');
+        infoWindow.open(map);
+        map.setCenter(pos);
+      }, handleLocationError);
     }
   </script>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALU94pLkit5lx_QU62wnzOsO6y1H_BWfI&callback=initMap"></script>
 </body>
 </html>
