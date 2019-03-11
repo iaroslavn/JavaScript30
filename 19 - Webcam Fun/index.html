@@ -10,7 +10,16 @@
   <div class="photobooth">
     <div class="controls">
       <button onClick="takePhoto()">Take Photo</button>
-<!--       <div class="rgb">
+      <div class="videoFilter">
+          Video Filter:
+          <input type="radio" id="redEffect" name="filter" value="redEffect" checked />
+          <label for="redEffect">Red Effect</label>
+          <input type="radio" id="rgbSplit" name="filter" value="rgbSplit" />
+          <label for="rgbSplit">RGB Split</label>
+          <input type="radio" id="greenScreen" name="filter" value="greenScreen" />
+          <label for="greenScreen">Green Screen</label>
+      </div>
+      <div class="rgb" style="display: none">
         <label for="rmin">Red Min:</label>
         <input type="range" min=0 max=255 name="rmin">
         <label for="rmax">Red Max:</label>
@@ -29,7 +38,7 @@
         <input type="range" min=0 max=255 name="bmin">
         <label for="bmax">Blue Max:</label>
         <input type="range" min=0 max=255 name="bmax">
-      </div> -->
+      </div>
     </div>
 
     <canvas class="photo"></canvas>
@@ -37,7 +46,7 @@
     <div class="strip"></div>
   </div>
 
-  <audio class="snap" src="http://wesbos.com/demos/photobooth/snap.mp3" hidden></audio>
+  <audio class="snap" src="snap.mp3" hidden></audio>
 
   <script src="scripts.js"></script>
 
